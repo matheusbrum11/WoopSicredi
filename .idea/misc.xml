@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/events_item.xml" value="0.25" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/shimmer_events_item.xml" value="0.67" />
       </map>
     </option>
   </component>
