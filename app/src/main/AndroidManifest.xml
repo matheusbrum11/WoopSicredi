@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WoopSicredi">
         <activity
+            android:name=".view.activities.DetailEventsActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activities.MainActivity"
             android:exported="true">
             <intent-filter>

@@ -8,12 +8,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.woopsicredi.databinding.ActivityMainBinding
 import com.example.woopsicredi.model.Events
 import com.example.woopsicredi.repositories.EventsRepository
+import com.example.woopsicredi.utils.startActivity
+import com.example.woopsicredi.utils.toast
+import com.example.woopsicredi.view.activities.DetailEventsActivity.Companion.EXTRA_REPLY
+import com.example.woopsicredi.view.adapters.EventAdapter
 import com.example.woopsicredi.viewmodel.EventsViewModel
 import com.example.woopsicredi.viewmodel.EventsViewModelFactory
-import com.example.woopsicredi.utils.toast
-import com.example.woopsicredi.view.adapters.EventAdapter
 
 class MainActivity : AppCompatActivity() {
+
 
     private lateinit var binding: ActivityMainBinding
     lateinit var viewModel: EventsViewModel
@@ -30,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerView()
         binding.shimmerViewContainer.startShimmer()
-        viewModel.movieList.observe(this, Observer {
+        viewModel.eventsList.observe(this, Observer {
             binding.listEvents.visibility = View.VISIBLE
             eventAdapter.setEventsList(it)
             binding.shimmerViewContainer.stopShimmer()
@@ -55,7 +58,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openDetails(event: Events) {
-
+        var bundle = Bundle()
+        bundle.putSerializable(EXTRA_REPLY, event)
+        startActivity(DetailEventsActivity::class.java, EXTRA_REPLY, bundle)
     }
 
     override fun onStart() {

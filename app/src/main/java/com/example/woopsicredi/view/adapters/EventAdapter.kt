@@ -1,12 +1,10 @@
 package com.example.woopsicredi.view.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.avatarfirst.avatargenlib.AvatarConstants
 import com.avatarfirst.avatargenlib.AvatarGenerator
-import com.example.woopsicredi.R
 import com.example.woopsicredi.databinding.EventsItemBinding
 import com.example.woopsicredi.model.Events
 import com.example.woopsicredi.utils.formartLongDate
@@ -39,11 +37,14 @@ class EventAdapter(
         holder.binding.description.text = events.description
         Picasso.get()
             .load(events.image)
-            .placeholder(AvatarGenerator.avatarImage(holder.itemView.context, 200, AvatarConstants.RECTANGLE,
-                events.title.toString()
-            ))
+            .placeholder(
+                AvatarGenerator.avatarImage(
+                    holder.itemView.context, 200, AvatarConstants.RECTANGLE,
+                    events.title.toString()
+                )
+            )
             .into(holder.binding.image)
-        holder.binding.groupClick.setOnClickListener {
+        holder.binding.click.setOnClickListener {
             onItemClicked(events)
         }
 

@@ -1,9 +1,8 @@
 package com.example.woopsicredi.model
 
-import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-@Entity(tableName = "events")
 data class Events(
 
     @SerializedName("id")
@@ -22,4 +21,4 @@ data class Events(
     val price: Double?,
     @SerializedName("title")
     val title: String?,
-)
+) : Serializable
