@@ -89,7 +89,7 @@ class DetailEventsActivity : AppCompatActivity() {
             true
         }
         topAppBar.setNavigationOnClickListener {
-            onBackPressed()
+            finish()
         }
     }
 

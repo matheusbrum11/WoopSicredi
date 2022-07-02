@@ -32,19 +32,6 @@ class MainActivity : AppCompatActivity() {
             )
 
         initRecyclerView()
-        binding.shimmerViewContainer.startShimmer()
-        viewModel.eventsList.observe(this, Observer {
-            binding.listEvents.visibility = View.VISIBLE
-            eventAdapter.setEventsList(it)
-            binding.shimmerViewContainer.stopShimmer()
-        })
-
-        viewModel.errorMessage.observe(this, Observer {
-            binding.listEvents.visibility = View.VISIBLE
-            binding.shimmerViewContainer.stopShimmer()
-            toast(it)
-        })
-
     }
 
     private fun initRecyclerView() {
@@ -65,7 +52,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getAllEvents()
+        viewModel.eventsList.observe(this, Observer {
+            binding.listEvents.visibility = View.VISIBLE
+            eventAdapter.setEventsList(it)
+            binding.shimmerViewContainer.stopShimmer()
+        })
+
+        viewModel.errorMessage.observe(this, Observer {
+            binding.listEvents.visibility = View.VISIBLE
+            binding.shimmerViewContainer.stopShimmer()
+            toast(it)
+        })
     }
 
     override fun onStop() {
@@ -75,6 +72,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        loadRequest()
+    }
+
+    private fun loadRequest() {
+        binding.shimmerViewContainer.startShimmer()
+        binding.listEvents.visibility = View.GONE
         viewModel.getAllEvents()
     }
 }
