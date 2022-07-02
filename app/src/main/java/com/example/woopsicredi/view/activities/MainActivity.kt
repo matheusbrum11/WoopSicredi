@@ -10,7 +10,7 @@ import com.example.woopsicredi.model.Events
 import com.example.woopsicredi.repositories.EventsRepository
 import com.example.woopsicredi.utils.startActivity
 import com.example.woopsicredi.utils.toast
-import com.example.woopsicredi.view.activities.DetailEventsActivity.Companion.EXTRA_REPLY
+import com.example.woopsicredi.view.activities.DetailEventsActivity.Companion.DETAIL_EXTRA_REPLY
 import com.example.woopsicredi.view.adapters.EventAdapter
 import com.example.woopsicredi.viewmodel.EventsViewModel
 import com.example.woopsicredi.viewmodel.EventsViewModelFactory
@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun openDetails(event: Events) {
         var bundle = Bundle()
-        bundle.putSerializable(EXTRA_REPLY, event)
-        startActivity(DetailEventsActivity::class.java, EXTRA_REPLY, bundle)
+        bundle.putSerializable(DETAIL_EXTRA_REPLY, event)
+        startActivity(DetailEventsActivity::class.java, DETAIL_EXTRA_REPLY, bundle)
     }
 
     override fun onStart() {

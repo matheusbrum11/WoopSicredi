@@ -2,4 +2,14 @@
     <string name="app_name">WoopSicredi</string>
     <string name="inicio">Inicio</string>
     <string name="title_share">Compartilhar</string>
+    <string name="title_confirm_presence">Confirmar presença</string>
+    <string name="title_description_of_the_event">Descrição do evento</string>
+    <string name="no_address">Sem endereço</string>
+    <string name="title_name">Nome</string>
+    <string name="title_email">Email</string>
+    <string name="title_confirm">Confirmar</string>
+    <string name="title_fill_the_email">Preencha o email corretamente</string>
+    <string name="title_fill_the_name">Preencha o nome</string>
+    <string name="checkin_success">Presença confirmada com sucesso</string>
+    <string name="checkin_error">Ocorreu um erro ao tentar confirmar presença, por favor tente novamente mais tarde</string>
 </resources>

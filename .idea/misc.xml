@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/activity_detail_events.xml" value="0.25" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/drawable/color_cursor.xml" value="0.12" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/drawable/ic_calendar.xml" value="0.202" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/activity_check_in.xml" value="0.22" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/activity_detail_events.xml" value="0.22" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/events_item.xml" value="0.33" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/events_item.xml" value="1.0" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/layout/shimmer_events_item.xml" value="0.67" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/WoopSicredi/app/src/main/res/menu/menu_detail_event.xml" value="0.33" />
       </map>

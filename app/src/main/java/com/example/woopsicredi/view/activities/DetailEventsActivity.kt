@@ -1,23 +1,25 @@
 package com.example.woopsicredi.view.activities
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.avatarfirst.avatargenlib.AvatarConstants
+import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.example.woopsicredi.R
 import com.example.woopsicredi.databinding.ActivityDetailEventsBinding
 import com.example.woopsicredi.model.Events
-import com.example.woopsicredi.utils.toast
-import com.example.woopsicredi.viewmodel.EventsViewModel
+import com.example.woopsicredi.utils.*
+import com.example.woopsicredi.view.activities.CheckInActivity.Companion.CHECKIN_EXTRA_REPLY
+import com.squareup.picasso.Picasso
+import java.util.*
 
 class DetailEventsActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_REPLY =
-            "com.example.woopsicredi.view.activities.DetailEventsActivity.EXTRA_REPLY"
+        const val DETAIL_EXTRA_REPLY =
+            "com.example.woopsicredi.view.activities.DetailEventsActivity.DETAIL_EXTRA_REPLY"
     }
 
     private lateinit var binding: ActivityDetailEventsBinding
-    lateinit var viewModel: EventsViewModel
     private var event: Events? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,18 +27,57 @@ class DetailEventsActivity : AppCompatActivity() {
         binding = ActivityDetailEventsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         onOptionsMenuItemSelected();
-        intent?.extras?.getBundle(EXTRA_REPLY)?.getSerializable(EXTRA_REPLY)
+        intent?.extras?.getBundle(DETAIL_EXTRA_REPLY)?.getSerializable(DETAIL_EXTRA_REPLY)
             .let {
                 event = it as Events?
             }
+        setUpUi()
+    }
+
+    private fun setUpUi() = binding.apply {
+
         event?.let {
-            binding.topAppBar.title = it.title
+            topAppBar.title = it.title
+            title.text = it.title
+            date.text = formartLongDate(Date(it.date!!))
+            time.text = formartOnlyTimeDate(Date(it.date))
+            if (it.latitude != null && it.longitude != null) {
+                address.text = getAddress(it.latitude, it.longitude)
+            } else {
+                address.text = getAddress()
+            }
+            description.text = it.description
+            Picasso.get()
+                .load(it.image)
+                .placeholder(
+                    AvatarGenerator.avatarImage(
+                        this@DetailEventsActivity, 200, AvatarConstants.CIRCLE,
+                        it.title.toString()
+                    )
+                )
+                .into(binding.image)
+        }
+        confirm.setOnClickListener {
+            val bundle = Bundle()
+            event?.id?.let { it1 ->
+                bundle.putInt(
+                    CHECKIN_EXTRA_REPLY,
+                    it1
+                )
+            }
+            startActivityTransitionAnimation(
+                CheckInActivity::class.java,
+                "transition_fab",
+                confirm,
+                CHECKIN_EXTRA_REPLY,
+                bundle
+            )
         }
     }
 
 
-    private fun onOptionsMenuItemSelected() {
-        binding.topAppBar.setOnMenuItemClickListener {
+    private fun onOptionsMenuItemSelected() = binding.apply {
+        topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_share -> {
                     shareEvent()
@@ -47,19 +88,9 @@ class DetailEventsActivity : AppCompatActivity() {
             }
             true
         }
-        binding.topAppBar.setNavigationOnClickListener {
+        topAppBar.setNavigationOnClickListener {
             onBackPressed()
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_share -> {
-                shareEvent();
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun shareEvent() {

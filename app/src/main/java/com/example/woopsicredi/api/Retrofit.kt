@@ -1,10 +1,10 @@
-package com.example.woopsicredi.rest
+package com.example.woopsicredi.api
 
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import com.example.woopsicredi.rest.ApiEndpoints.*
+import com.example.woopsicredi.api.ApiEndpoints.*
 
 object Retrofit {
 
