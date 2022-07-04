@@ -14,7 +14,9 @@ import java.net.HttpURLConnection
 class EventsViewModel(private val repository: EventsRepository) : ViewModel() {
 
     val eventsList = MutableLiveData<List<Events>>()
-    val errorMessage = MutableLiveData<String>()
+    val events = MutableLiveData<Events>()
+    val errorMessageGetAllEvents = MutableLiveData<String>()
+    val errorMessageGetEventDetail = MutableLiveData<String>()
     val statusCheckIn = MutableLiveData<Boolean>()
 
     fun getAllEvents() {
@@ -25,7 +27,7 @@ class EventsViewModel(private val repository: EventsRepository) : ViewModel() {
             }
 
             override fun onFailure(call: Call<List<Events>>, t: Throwable) {
-                errorMessage.postValue(t.message)
+                errorMessageGetAllEvents.postValue(t.message)
             }
         })
     }
@@ -43,6 +45,19 @@ class EventsViewModel(private val repository: EventsRepository) : ViewModel() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 statusCheckIn.postValue(false)
+            }
+        })
+    }
+
+    fun getEventDetail(id: Int) {
+        val request = repository.getEventDetail(id)
+        request.enqueue(object : Callback<Events> {
+            override fun onResponse(call: Call<Events>, response: Response<Events>) {
+                events.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<Events>, t: Throwable) {
+                errorMessageGetEventDetail.postValue(t.message)
             }
         })
     }

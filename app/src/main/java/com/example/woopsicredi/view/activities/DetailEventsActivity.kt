@@ -1,16 +1,23 @@
 package com.example.woopsicredi.view.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.avatarfirst.avatargenlib.AvatarConstants
 import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.example.woopsicredi.R
 import com.example.woopsicredi.databinding.ActivityDetailEventsBinding
 import com.example.woopsicredi.model.Events
+import com.example.woopsicredi.repositories.EventsRepository
 import com.example.woopsicredi.utils.*
 import com.example.woopsicredi.view.activities.CheckInActivity.Companion.CHECKIN_EXTRA_REPLY
+import com.example.woopsicredi.viewmodel.EventsViewModel
+import com.example.woopsicredi.viewmodel.EventsViewModelFactory
 import com.squareup.picasso.Picasso
 import java.util.*
+
 
 class DetailEventsActivity : AppCompatActivity() {
 
@@ -21,16 +28,34 @@ class DetailEventsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailEventsBinding
     private var event: Events? = null
+    private var eventId: Int? = null
+    lateinit var viewModel: EventsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailEventsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        onOptionsMenuItemSelected();
-        intent?.extras?.getBundle(DETAIL_EXTRA_REPLY)?.getSerializable(DETAIL_EXTRA_REPLY)
-            .let {
-                event = it as Events?
+        viewModel =
+            ViewModelProvider(this, EventsViewModelFactory(EventsRepository())).get(
+                EventsViewModel::class.java
+            )
+        val uri = intent.data
+        if (uri != null)
+            if (uri.pathSegments?.size!! > 0) {
+                eventId = uri.pathSegments[0].toInt()
+            } else {
+                errorLoadDetail()
             }
+
+        if (eventId != null) {
+            viewModel.getEventDetail(eventId!!)
+        } else {
+            intent?.extras?.getBundle(DETAIL_EXTRA_REPLY)?.getSerializable(DETAIL_EXTRA_REPLY)
+                .let {
+                    event = it as Events?
+                }
+        }
+        onOptionsMenuItemSelected();
         setUpUi()
     }
 
@@ -93,7 +118,39 @@ class DetailEventsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.events.observe(this, androidx.lifecycle.Observer {
+            event = it
+            if (it != null) {
+                setUpUi()
+            } else {
+                errorLoadDetail()
+            }
+        })
+
+        viewModel.errorMessageGetAllEvents.observe(this, androidx.lifecycle.Observer {
+            toast(it)
+            finish()
+        })
+    }
+
+    private fun errorLoadDetail() {
+        binding.layoutEmpty.visibility = View.VISIBLE
+        binding.topAppBar.title = " "
+        binding.topAppBar.menu.clear()
+    }
+
     private fun shareEvent() {
-        toast("Hello")
+        try {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "text/plain"
+            shareIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "${getString(R.string.message_come_join_the_event)}https://www.woopsicrediexample.com/${event?.id}"
+            )
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.send_link)))
+        } catch (e: Exception) {
+        }
     }
 }

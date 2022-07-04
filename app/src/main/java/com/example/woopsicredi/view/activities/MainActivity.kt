@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             binding.shimmerViewContainer.stopShimmer()
         })
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessageGetAllEvents.observe(this, Observer {
             binding.listEvents.visibility = View.VISIBLE
             binding.shimmerViewContainer.stopShimmer()
             toast(it)

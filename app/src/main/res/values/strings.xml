@@ -12,4 +12,7 @@
     <string name="title_fill_the_name">Preencha o nome</string>
     <string name="checkin_success">Presença confirmada com sucesso</string>
     <string name="checkin_error">Ocorreu um erro ao tentar confirmar presença, por favor tente novamente mais tarde</string>
+    <string name="error_detail_event">Ocorreu um erro ao tentar carregar o evento tente novamente mais tarde</string>
+    <string name="message_come_join_the_event">\nClique no link e venha participar do evento\n\n</string>
+    <string name="send_link">Compartilhar link</string>
 </resources>

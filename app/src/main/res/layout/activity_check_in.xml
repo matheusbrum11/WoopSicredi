@@ -38,9 +38,10 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:hint="@string/title_name"
-            app:boxStrokeColor="?attr/colorOnSecondary"
-            app:counterOverflowTextColor="?attr/colorOnSecondary"
-            app:hintTextColor="?attr/colorOnSecondary"
+            app:boxStrokeColor="?attr/colorSecondary"
+            app:counterOverflowTextColor="?attr/colorSecondary"
+            app:counterTextColor="?attr/colorSecondary"
+            app:hintTextColor="?attr/colorSecondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
